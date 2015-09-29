@@ -1,0 +1,2 @@
+README.txt
+The program is best ran from a python IDE, since, in its current iteration, it needs a list of URLs (or a single URL) to run.  It also needs a title, but that is actually arbitrary, I chose the name of a specific album, corresponding obviously to the URLs.  The program returns graphs showing the unique word count, the word count and the ratio of the the unique words to total words.  All that is required to run the program from the IDE is to build it.  
