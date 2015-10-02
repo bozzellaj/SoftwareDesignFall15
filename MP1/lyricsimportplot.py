@@ -36,7 +36,12 @@ def lyricsimport(sites):
 	lyricsbyline = []
 	boundlines = [0,0]
 
-
+	# using a for count, elem loop allows you to acces both the index and the value of each element in your list
+	# in your code here, while it works, it looks like you are only using the value, not the index
+	# therefore, your for loop code could be simplified like:
+	# for elem in sites:
+	# and in either case you because you have the value of the element, you can change your URL function to URL(elem) 
+	# instead of URL(sites[count])
 	for count , elem in enumerate(sites):  #Create a list containing the HTML from each page as plaintext, split up by line
 
 		textbyline.append(plaintext(URL(sites[count]).download()).splitlines())
@@ -48,8 +53,9 @@ def lyricsimport(sites):
 	
 	
 	for count , elem in enumerate(textbyline): #cut the plain text HTML into just the song lyrics
-		subtext = textbyline[count]
+		subtext = textbyline[count] # this value is already stored in your "elem" variable by the for loop
 		
+		# clever way of parsing html - nice
 		for n in range(lines[count]):  #determine which lines are actually the lyrics
 			if subtext[n] == 'Embed' and n<100:  #this is done by checking for key words that appear in the HTML on each page
 				#print n
@@ -61,6 +67,9 @@ def lyricsimport(sites):
 
 		lyricsbyline.append(subtext[boundlines[0] : boundlines[1]])  #create a list : each element is a list of the lyrics of each song from [sites] by line
 		lyrics.append(" ".join(lyricsbyline[count]).split())
+		# be careful about the way you're defining unique words - because of the way you're splitting words, if you look at the actual output
+		# of the lists, it considers 'off' and 'off,' (note the comma) to be two different words 
+		# maybe if you were to extend the project you could make sure that those are not considered unique
 
 	return lyrics
 	
@@ -70,15 +79,20 @@ doomlyrics = lyricsimport(doomsites)
 beatleslyrics = lyricsimport(beatlessites)
 mjlyrics = lyricsimport(mjsites)
 tswiftlyrics = lyricsimport(tswiftsites)
+# it would be easier to read your code if all function calls were grouped
+# i.e. moving these lines to the bottom with the calls to lyricsplot
 
-
-
+# good job separating your code into function blocks that are well-scoped
 def lyricsplot(lyrics,title):
 	uniquewordcount = []  #define a word count list
 	wordcount = []
 
+	# same thing about for loops as above. look over the for loop stuff in think python
+	# there are different ways to use a for loop depending on what you want to do
+	# i.e. - for i in range(), for x in <list>, for count, elem in enumerate(<list>)
+	# make sure you understand the differences between each
 	for count , elem in enumerate(lyrics):  #Find the number of words and unique words used in each song
-		uniquewordcount.append(len(set(lyrics[count])))
+		uniquewordcount.append(len(set(lyrics[count]))) # cool use of set command - didn't know about it actually!
 		wordcount.append(len(lyrics[count]))
 
 
@@ -110,7 +124,7 @@ lyricsplot(beatleslyrics,beatlestitle)
 lyricsplot(mjlyrics,mjtitle)
 lyricsplot(tswiftlyrics,tswifttitle)
 
-	
+# nit-picky comment but for some reason you have a lot of blank lines at the end of your file	
 
 
 
