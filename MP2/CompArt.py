@@ -9,6 +9,9 @@ from math import *
 from PIL import Image
 
 def blockrecurse(depth, blocks, parameters):
+	""" 
+	Choose a random function block from the list of blocks, if depth greater than one, recurse and start again
+	"""
 	if depth == 1:
 		return (choice(blocks), choice(parameters))
 	else:
@@ -16,6 +19,9 @@ def blockrecurse(depth, blocks, parameters):
 		return (choice(blocks), blockrecurse(depth, blocks, parameters))
 	
 def functioneval(function, a, b):
+	"""
+	Evaluate the function based on two parameters a and b
+	"""
 	if function[0] == "x":
 		func = a
 	elif function[0] == "y":
@@ -38,10 +44,10 @@ def remap_interval(val, inp_int_start, inp_int_end, out_int_start, out_int_end):
 	in the input interval compared to the output and then remaps the that relative position in the output interval
 	"""
 
-	input_diff = float(inp_int_end) - float(inp_int_start)
-	output_diff = float(out_int_end) - float(out_int_start)
-	position = val - float(inp_int_start)
-	relative_position = position/input_diff
+	input_diff = float(inp_int_end) - float(inp_int_start)   # Calculate input interval
+	output_diff = float(out_int_end) - float(out_int_start)  # Calculate output interval
+	position = val - float(inp_int_start)					 # Finds the position on the input interval
+	relative_position = position/input_diff					 
 	remap = (relative_position * output_diff) + out_int_start
 
 	return remap
@@ -62,8 +68,6 @@ def create(filename, width, height):
 	min_depth = 6
 	max_depth = 10
 	depth =  npr.randint(min_depth, max_depth+1)
-	a = 2.0*npr.random()-1
-	b = 2.0*npr.random()-1
 	blocks = ["prod(x, y)" , "avg(x, y)", "cos_pi(x)", "sin_pi(x)", "x" , "y"]
 	parameters = ["x", "y"]
 
@@ -72,7 +76,7 @@ def create(filename, width, height):
 	functiong = blockrecurse(depth, blocks, parameters)
 	functionb = blockrecurse(depth, blocks, parameters)
     
-	# Generate image and loop color mapping on each pixel
+	# Generate image and loop color mapping on each pixel	
 	picture = Image.new("RGB", (width, height))
 	pixels = picture.load()
 	for i in range(width):
@@ -87,4 +91,4 @@ def create(filename, width, height):
 
 	picture.save(filename)
 
-create('test5.png',500,500)
+create('test6.png',500,500)
