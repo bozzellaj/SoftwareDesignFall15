@@ -1,0 +1,17 @@
+What is the general trend in the curve?
+The general trend in the curve is that as you increase the training percentage, the accuracy of the test increases as well.  The slope defintiely decreases as the percentage goes up, though there is still noticable improvement from  85% to 90%.  
+I would assume this is a result of the fact that almost all of these learners are more accurate with more information.  Also the test set is smaller, if the training set is larger, since they come from the same overall data set.  
+
+Are there parts of the curve that appear to be noisier than others?  Why?
+
+The lower end of the curver (about 5 to 45 percent) seems to be more noisy than the rest, though sometimes it is very smooth anyway.  This is probably because the test set is actually smaller than the training set.
+
+How many trials do you need to get a smooth curve?
+
+250 Trials gets a much smoother curve than 100, and 1000 is not a significant improvement over 250.  250 is not a perfect curve, but there are no sharp corners at all, and you can see a clear
+trend, so I would say 250.
+
+Try different values for C (by changing LogisticRegression(C=10**-10)).  What happens?  If you want to know why this happens, see this Wikipedia page as well as the documentation for LogisticRegression in scikit-learn.
+
+When C is changed, the slope of the curve chamges.  Higher values of C, which correspond to low regularization, lead to a higher slope at the start, which then falls off more significantly at the end.  In this case, higher C values also correspond to higher accuracy.  This is interesting because it implies that for this set, regularization actually makes the learer less accurate, even though it is used to make models better.  This could be a result of the fact that regularization is often used to combat overfitting, and the MNIST is prone to overfitting, so the model probably overfits at high C values and is more accurate.  
+
