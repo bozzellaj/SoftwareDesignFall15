@@ -8,6 +8,8 @@ import numpy.random as npr
 from math import *
 from PIL import Image
 
+#^^ you can also determine which math functions you want to import and name those specifically
+
 def blockrecurse(depth, blocks, parameters):
 	""" 
 	Choose a random function block from the list of blocks, if depth greater than one, recurse and start again
@@ -92,3 +94,6 @@ def create(filename, width, height):
 	picture.save(filename)
 
 create('test6.png',500,500)
+#^^ putting the line above beneath an "if __name__ == '__main__':" clause means
+#that you can make this py file a library and call its functions without
+#creating an image every time.
